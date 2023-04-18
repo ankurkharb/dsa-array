@@ -1,0 +1,51 @@
+#include <iostream >
+using namespace std;
+struct array
+{
+    int A[10];
+    int size;
+    int length;
+};
+
+void display(struct array arr) {
+    cout << "The elements are" << endl;
+    for (int i = 0; i < arr.length; i++) {
+        cout << arr.A[i] << endl;
+    }
+}
+void append(struct array *ar,int x)
+{
+    if(ar->length<ar->size)
+    {
+        ar->A[ar->length]=x;
+        ar->length++;
+    }
+}
+void insert(struct array *ar,int index,int x)
+{
+    if(index>=0 && index<=ar->length)
+    {
+        for(int i=ar->length;i>index;i--)
+        {
+            ar->A[i]=ar->A[i-1];
+        }
+        ar->A[index]=x;
+        ar->length++;
+    }
+}
+void del(struct array *ar,int index)
+{
+    for(int i=index;i<ar->length-1;i++)
+    {
+        ar->A[i]=ar->A[i+1];
+    }
+    ar->length--;
+}
+int main()
+{
+    struct array arr={{2,4,6,8,10,},10,5};
+    append(&arr,10);
+    insert(&arr,3,7);
+    display(arr);
+
+}
