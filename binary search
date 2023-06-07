@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int lower=0,mid,upper=6,search;
+    int arr[10]={2,4,6,8,10,12,14};
+    cout<<"enter element to find";
+    cin>>search;
+    while(lower<=upper)
+    {
+        mid=(lower+upper)/2;
+        if(search==arr[mid])
+        {
+            cout<<"found at "<<mid<<endl;
+            return 0;
+        } else if(arr[mid]<search)
+        {
+            lower=mid+1;
+        }
+        else
+        {
+            upper=mid-1;
+        }
+
+    }
