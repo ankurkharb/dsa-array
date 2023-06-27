@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int rbinarysearch(int a[],int low,int high,int key)
+{
+    int mid;
+    if(low<=high)
+    {
+        mid=(high+low)/2;
+        if(a[mid]==key)
+            return mid;
+        else if(a[mid]<key)
+            return rbinarysearch(a,mid+1,high,key);
+        else
+            return rbinarysearch(a,low,mid-1,key);
+    }
+}
+int main()
+{
+    int a[8]={2,4,6,8,10,12,16,19};
+    int l=0,h=5,key=12;
+    cout<<rbinarysearch(a,l,h,key);
+}
