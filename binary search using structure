@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+int swap(int *x,int *y)
+{
+    int temp=*x;
+    *x=*y;
+    *y=temp;
+}
+struct array
+{
+    int A[50];
+    int size;
+    int len;
+};
+int BSearch(struct array arr,int key)
+{
+    int l=0,h=arr.len-1,mid;
+    while(l<=h)
+    {
+        mid=(l+h)/2;
+        if(arr.A[mid]==key)
+            return mid;
+        else if(arr.A[mid]<key)
+        {
+            l=mid+1;
+        }
+        else
+            h=mid-1;
+    }
+    return -1;
+}
+
+int main()
+{
+    int key;
+    cout<<"enter key";
+    cin>>key;
+    struct array arr1={{3 ,6, 9 ,12 ,17 ,19},10,6};
+    int x;
+    x=BSearch(arr1,key);
+    cout<<x;
+}
