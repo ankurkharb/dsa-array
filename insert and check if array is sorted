@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+struct array
+{
+    int a[20];
+    int size;
+    int length;
+};
+int swap(int *x,int *y)
+{
+    int temp=*x;
+    *x=*y;
+    *y=temp;
+}
+void display(struct array arr1)
+{
+    for(int i=0;i<arr1.length;i++)
+    {
+        cout<<arr1.a[i]<<"  ";
+    }
+}
+void arraysorted(struct array *arr)
+{
+    int i=0,j=arr->length-1;
+    while(i<j)
+    {
+        while(arr->a[i]<0){i++;}
+        while(arr->a[j]>=0){j--;}
+        if(i<j)
+        {
+            swap(&arr->a[i],&arr->a[j]);
+        }
+    }
+}
+void insert(struct array *arr,int x)
+{
+    int i=arr->length-1;
+    while(arr->length<arr->size && arr->a[i]>x)
+    {
+        arr->a[i+1]=arr->a[i];
+        i--;
+    }
+    arr->a[i+1]=x;
+    arr->length++;
+
+}
+
+int main()
+{
+
+    struct array ar1={{1,3,7,9,14,17,19},10,7};
+    struct array ar2={{-4,7,-7,9,3,5,2},10,7};
+    //insert(&ar1,26);
+    arraysorted(&ar2);
+    display(ar2);
+}
