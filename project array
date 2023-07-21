@@ -1,0 +1,256 @@
+#include<iostream>
+using namespace std;
+class array
+{
+private:
+    int *A;
+    int size;
+    int length;
+public:
+    array()
+    {
+        A[10];
+        A= new int[10];
+        length=0;
+    }
+    array(int sz)
+    {
+        size=sz;
+        length=0;
+        A=new int[size];
+    }
+    ~array()
+    {
+        delete []A;
+    }
+
+    void display();
+    int max();
+    int sum();
+    float avg();
+    int reverse();
+    void insert(int x,int index);
+    int Lsearch(int x);
+    int Delete(int index);
+    int reverse2();
+    int Bsearch(int key);
+    array* merge(array arr2);
+};
+
+void array::display()
+{
+    for(int i=0;i<length;i++)
+        cout<<A[i]<<"  ";
+    cout<<endl;
+}
+array* array::merge(array arr2)
+{
+    int i=0,j=0,k=0;
+    array *arr3;
+    arr3=new array[length+arr2.length];
+    while(i<length && j<arr2.length)
+    {
+        if(A[i]<arr2.A[j])
+        {
+            arr3->A[k] = A[i];
+            k++;
+            i++;
+        }
+        else
+        {
+            arr3->A[k] = arr2.A[j];
+            k++;
+            j++;
+        }
+        for(;i<length;i++)
+        {
+            arr3[k]=A[i];
+            k++;
+            i++;
+        }
+        for(;j<length;j++)
+        {
+            arr3[k]=A[j];
+            k++;
+            j++;
+        }
+        arr3->length=length+arr2.length;
+        return arr3;
+}
+}
+void array::insert(int x, int index)
+{
+
+    if(index>=0 && index <=length)
+    {
+        for(int i=length-1;i>=index;i--)
+        {
+            A[i+1]=A[i];
+        }
+        A[index]=x;
+        length++;
+    }
+}
+int array::Delete(int index)
+{
+    if(index>=0 && index<length)
+    {
+        for(int i=index;i<length;i++)
+        {
+            A[i]=A[i+1];
+        }
+        length--;
+    }
+}
+int array::max()
+{
+    int max=A[0];
+    for(int i=1;i<length;i++)
+    {
+        if(A[i]>max)
+        {
+            max=A[i];
+        }
+    }
+    return max;
+}
+float array::avg()
+{
+    int sum=0;
+    for(int i=0;i<length;i++)
+    {
+        sum=sum+A[i];
+    }
+    return sum/length;
+}
+int array::reverse()
+{
+    int i,j;
+    for(i=0,j=length-1;i<j;i++,j--)
+    {
+        int temp=A[i];
+        A[i]=A[j];
+        A[j]=temp;
+    }
+}
+int array::reverse2()
+{
+    int *B;
+    B=new int[size];
+    int i,j;
+    for(i=length-1,j=0;i>=0;i--,j++)
+    {
+        B[j]=A[i];
+    }
+    for(i=0;i<length;i++)
+    {
+        A[i]=B[i];
+    }
+}
+int array::Lsearch(int x)
+{
+    int i;
+    for(i=0;i<length;i++)
+    {
+        if(A[i]==x)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+int array::Bsearch(int key)
+{
+    int low=0,high=length-1,mid;
+    while(low<high)
+    {
+        mid=(low+high)/2;
+        if(A[mid]==key)
+            return mid;
+        else if(A[mid]<key)
+            low=mid+1;
+        else
+            high=mid-1;
+    }
+    return -1;
+}
+
+int array::sum()
+{
+    int sum=0;
+    for(int i=0;i<length;i++)
+    {
+        sum+=A[i];
+    }
+    return sum;
+}
+
+int main()
+{
+    array *arr;
+    int sz;
+    cout<<"Enter size of array";
+    cin>>sz;
+    arr=new array[sz];
+    int ch,index,x;
+    do {
+        cout<<"\n\nMenu\n";
+        cout<<"1. Insert\n";
+        cout<<"2. Delete\n";
+        cout<<"3. Sum\n";
+        cout<<"4. Search\n";
+        cout<<"5. Average\n";
+        cout<<"6. Reverse\n";
+        cout<<"7. Display\n";
+        cout<<"8. Exit\n";
+
+        cout<<"Enter your choice\n";
+        cin>>ch;
+
+        switch (ch) {
+            case 1:
+            {
+                cout << "Insert an element and index";
+                cin >> x >> index;
+                arr->insert(x, index);
+                break;
+            }
+            case 2:
+            {
+                cout<<"Enter index of element";
+                cin>>index;
+                x=arr->Delete(index);
+                cout<<"deleted element is "<<x;
+                break;
+            }
+            case 3:
+            {
+                cout<<"Sum of array is"<<arr->sum();
+                break;
+            }
+            case 4:
+            {
+                cout<<"Enter element to search";
+                cin>>x;
+                index=arr->Lsearch(x);
+                cout<<index;
+                break;
+            }
+            case 5:
+            {
+                cout<<"Average is "<<arr->avg();
+                break;
+            }
+            case 6:
+            {
+                cout<<"Reverse of array is "<<arr->reverse();
+                break;
+            }
+            case 7:
+            {
+                arr->display();
+            }
+        }
+    } while (ch<8);
+    return 0;
+}
